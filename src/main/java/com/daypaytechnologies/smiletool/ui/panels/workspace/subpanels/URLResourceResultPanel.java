@@ -12,7 +12,7 @@ import java.awt.*;
 @Service
 public class URLResourceResultPanel extends JPanel {
 
-    private static final String BODY_TAB_NAME = "Body";
+    private static final String BODY_TAB_NAME = "Response";
 
     private static final String HEADERS_TAB_NAME = "Headers";
 
@@ -25,7 +25,8 @@ public class URLResourceResultPanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.RED)); // Debug border
         //Dimension size = getPreferredSize();
         //setPreferredSize(new Dimension(size.width, 150));
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, 500));
+        //int parentHeight = getParent().getHeight();
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 800));
         setLayout(new BorderLayout());
         addAllComponent();
     }
