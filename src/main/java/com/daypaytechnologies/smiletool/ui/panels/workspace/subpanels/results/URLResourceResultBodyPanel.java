@@ -1,4 +1,4 @@
-package com.daypaytechnologies.smile.ui.panels.workspace.subpanels.results;
+package com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.results;
 
 import javax.swing.*;
 import java.awt.*;

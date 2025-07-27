@@ -1,4 +1,4 @@
-package com.daypaytechnologies.smile.ui.components;
+package com.daypaytechnologies.smiletool.ui.components;
 
 import javax.swing.*;
 import java.awt.*;

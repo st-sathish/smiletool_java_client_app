@@ -1,6 +1,6 @@
-package com.daypaytechnologies.smile;
+package com.daypaytechnologies.smiletool;
 
-import com.daypaytechnologies.smile.ui.SmileFrameMainLauncher;
+import com.daypaytechnologies.smiletool.ui.SmileFrameMainLauncher;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

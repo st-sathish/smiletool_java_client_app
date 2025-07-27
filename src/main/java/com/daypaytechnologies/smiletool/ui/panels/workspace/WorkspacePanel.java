@@ -1,8 +1,8 @@
-package com.daypaytechnologies.smile.ui.panels.workspace;
+package com.daypaytechnologies.smiletool.ui.panels.workspace;
 
-import com.daypaytechnologies.smile.ui.panels.workspace.subpanels.URLResourceOptionPanel;
-import com.daypaytechnologies.smile.ui.panels.workspace.subpanels.URLResourcePanel;
-import com.daypaytechnologies.smile.ui.panels.workspace.subpanels.URLResourceResultPanel;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.URLResourceOptionPanel;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.URLResourcePanel;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.URLResourceResultPanel;
 
 import javax.swing.*;
 import java.awt.*;

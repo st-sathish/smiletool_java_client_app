@@ -1,4 +1,4 @@
-package com.daypaytechnologies.smile.ui.components;
+package com.daypaytechnologies.smiletool.ui.components;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;

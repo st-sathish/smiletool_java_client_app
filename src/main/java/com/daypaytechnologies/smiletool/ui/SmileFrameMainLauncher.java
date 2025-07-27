@@ -1,7 +1,7 @@
-package com.daypaytechnologies.smile.ui;
+package com.daypaytechnologies.smiletool.ui;
 
-import com.daypaytechnologies.smile.ui.components.MenuPanel;
-import com.daypaytechnologies.smile.ui.panels.workspace.WorkspacePanel;
+import com.daypaytechnologies.smiletool.ui.components.MenuPanel;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.WorkspacePanel;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;

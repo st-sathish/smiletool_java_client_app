@@ -1,11 +1,17 @@
-package com.daypaytechnologies.smile.ui.panels.workspace.subpanels;
+package com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels;
 
-import com.daypaytechnologies.smile.ui.panels.workspace.components.URLResourceTextField;
+import com.daypaytechnologies.smiletool.core.rmi.RmiServiceFactory;
+import com.daypaytechnologies.smiletool.executions.dto.RestRequestDTO;
+import com.daypaytechnologies.smiletool.executions.rmi.RestRmiExecutorService;
+import com.daypaytechnologies.smiletool.core.rmi.RmiConnection;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.components.URLResourceTextField;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class URLResourcePanel extends JPanel {
+public class URLResourcePanel extends JPanel implements ActionListener {
 
     String[] httpMethods = {"GET", "POST", "PUT", "DELETE"};
 
@@ -45,10 +51,29 @@ public class URLResourcePanel extends JPanel {
         sndButton.setForeground(Color.WHITE);
         sndButton.setFont(new Font("SansSerif", Font.BOLD, 16));
         sndButton.setOpaque(true);
+        sndButton.setName("ExecuteBtn");
         sndButton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        sndButton.addActionListener(this);
 
         // Optional: cursor on hover
         sndButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         return sndButton;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton button = (JButton) e.getSource();
+        if("ExecuteBtn".equals(button.getName())) {
+            try {
+                RestRmiExecutorService restRmiExecutorService = RmiServiceFactory.getInstance().getRestRmiExecutorService();
+                final RestRequestDTO restRequestDTO = new RestRequestDTO();
+                restRequestDTO.setRestURL("http://localhost:9090/accounts");
+                restRequestDTO.setHttpMethod("GET");
+                String result = restRmiExecutorService.execute(restRequestDTO);
+                System.out.println(result);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

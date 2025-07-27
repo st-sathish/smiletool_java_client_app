@@ -1,6 +1,6 @@
-package com.daypaytechnologies.smile.ui.panels.workspace.components;
+package com.daypaytechnologies.smiletool.ui.panels.workspace.components;
 
-import com.daypaytechnologies.smile.ui.components.DefaultExtendedCaret;
+import com.daypaytechnologies.smiletool.ui.components.DefaultExtendedCaret;
 
 import javax.swing.*;
 import java.awt.*;
