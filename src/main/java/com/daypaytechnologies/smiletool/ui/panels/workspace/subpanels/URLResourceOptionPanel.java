@@ -5,10 +5,12 @@ import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.UR
 import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.URLResourceOptionBodyPanel;
 import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.URLResourceOptionHeaderPanel;
 import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.URLResourceOptionParamsPanel;
+import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.awt.*;
 
+@Service
 public class URLResourceOptionPanel extends JPanel {
 
     private static final String HEADER_TAB_NAME = "Headers";
@@ -19,7 +21,10 @@ public class URLResourceOptionPanel extends JPanel {
 
     private static final String BODY_TAB_NAME = "Body";
 
-    public URLResourceOptionPanel() {
+    private final URLResourceOptionBodyPanel urlResourceOptionBodyPanel;
+
+    public URLResourceOptionPanel(URLResourceOptionBodyPanel urlResourceOptionBodyPanel) {
+        this.urlResourceOptionBodyPanel = urlResourceOptionBodyPanel;
         setBorder(BorderFactory.createLineBorder(Color.BLUE)); // Debug border
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
         setLayout(new BorderLayout());
@@ -37,7 +42,7 @@ public class URLResourceOptionPanel extends JPanel {
         tabbedPane.addTab(PARAMS_TAB_NAME, new URLResourceOptionParamsPanel());
         tabbedPane.addTab(AUTHORIZATION_TAB_NAME, new URLResourceOptionAuthorizationPanel());
         tabbedPane.addTab(HEADER_TAB_NAME, new URLResourceOptionHeaderPanel());
-        tabbedPane.addTab(BODY_TAB_NAME, new URLResourceOptionBodyPanel());
+        tabbedPane.addTab(BODY_TAB_NAME, urlResourceOptionBodyPanel);
         add(tabbedPane, BorderLayout.CENTER);
     }
 }

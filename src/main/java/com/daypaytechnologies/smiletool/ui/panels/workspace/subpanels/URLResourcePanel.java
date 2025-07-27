@@ -1,21 +1,27 @@
 package com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels;
 
+import com.daypaytechnologies.smiletool.commands.dto.URLResourceResultBodyCommandDTO;
+import com.daypaytechnologies.smiletool.core.commands.CommandInvoker;
 import com.daypaytechnologies.smiletool.core.rmi.RmiServiceFactory;
 import com.daypaytechnologies.smiletool.executions.dto.RestRequestDTO;
 import com.daypaytechnologies.smiletool.executions.rmi.RestRmiExecutorService;
-import com.daypaytechnologies.smiletool.core.rmi.RmiConnection;
 import com.daypaytechnologies.smiletool.ui.panels.workspace.components.URLResourceTextField;
+import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@Service
 public class URLResourcePanel extends JPanel implements ActionListener {
 
     String[] httpMethods = {"GET", "POST", "PUT", "DELETE"};
 
-    public URLResourcePanel() {
+    private final CommandInvoker commandInvoker;
+
+    public URLResourcePanel(CommandInvoker commandInvoker) {
+        this.commandInvoker = commandInvoker;
         //setBorder(BorderFactory.createLineBorder(Color.RED));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -71,9 +77,16 @@ public class URLResourcePanel extends JPanel implements ActionListener {
                 restRequestDTO.setHttpMethod("GET");
                 String result = restRmiExecutorService.execute(restRequestDTO);
                 System.out.println(result);
+                dispatchResult(result);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+    }
+
+    private void dispatchResult(String result) {
+        URLResourceResultBodyCommandDTO dto = new URLResourceResultBodyCommandDTO();
+        dto.setResult(result);
+        commandInvoker.run(dto);
     }
 }
