@@ -1,10 +1,9 @@
 package com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels;
 
-import com.daypaytechnologies.smiletool.commands.dto.URLResourceResultBodyCommandDTO;
-import com.daypaytechnologies.smiletool.core.commands.CommandInvoker;
-import com.daypaytechnologies.smiletool.core.rmi.RmiServiceFactory;
 import com.daypaytechnologies.smiletool.executions.dto.RestRequestDTO;
-import com.daypaytechnologies.smiletool.executions.rmi.RestRmiExecutorService;
+import com.daypaytechnologies.smiletool.presenters.listeners.URLExecutorListener;
+import com.daypaytechnologies.smiletool.presenters.URLExecutorPresenter;
+import com.daypaytechnologies.smiletool.ui.AbstractJPanel;
 import com.daypaytechnologies.smiletool.ui.panels.workspace.components.URLResourceTextField;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +13,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @Service
-public class URLResourcePanel extends JPanel implements ActionListener {
+public class URLResourcePanel extends AbstractJPanel implements ActionListener, URLExecutorListener {
 
     String[] httpMethods = {"GET", "POST", "PUT", "DELETE"};
 
-    private final CommandInvoker commandInvoker;
+    private final URLExecutorPresenter urlExecutorPresenter;
 
-    public URLResourcePanel(CommandInvoker commandInvoker) {
-        this.commandInvoker = commandInvoker;
+    public URLResourcePanel(URLExecutorPresenter urlExecutorPresenter) {
+        this.urlExecutorPresenter = urlExecutorPresenter;
         //setBorder(BorderFactory.createLineBorder(Color.RED));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -37,12 +36,15 @@ public class URLResourcePanel extends JPanel implements ActionListener {
     private JComboBox<String> prepareHttpMethods() {
         JComboBox<String> httpMethodBox = new JComboBox<>(httpMethods);
         httpMethodBox.setPreferredSize(new Dimension(100, 40));
+        httpMethodBox.setName("httpMethodBox");
         return httpMethodBox;
     }
 
     private URLResourceTextField prepareURLResourceBox() {
         URLResourceTextField urlTextField = new URLResourceTextField();
         urlTextField.setPreferredSize(new Dimension(1000, 40));
+        urlTextField.setName("urlResourceTF");
+        urlTextField.setText("http://localhost:9090/accounts");
         return urlTextField;
     }
 
@@ -70,23 +72,36 @@ public class URLResourcePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         if("ExecuteBtn".equals(button.getName())) {
-            try {
-                RestRmiExecutorService restRmiExecutorService = RmiServiceFactory.getInstance().getRestRmiExecutorService();
-                final RestRequestDTO restRequestDTO = new RestRequestDTO();
-                restRequestDTO.setRestURL("http://localhost:9090/accounts");
-                restRequestDTO.setHttpMethod("GET");
-                String result = restRmiExecutorService.execute(restRequestDTO);
-                System.out.println(result);
-                dispatchResult(result);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            startProcess();
         }
     }
 
-    private void dispatchResult(String result) {
-        URLResourceResultBodyCommandDTO dto = new URLResourceResultBodyCommandDTO();
-        dto.setResult(result);
-        commandInvoker.run(dto);
+    private void enableDisableAction(boolean enable) {
+        JButton sendBtn = (JButton) getComponent("ExecuteBtn");
+        sendBtn.setEnabled(enable);
+    }
+
+    private void startProcess() {
+        try {
+            enableDisableAction(false);
+            JComboBox httpMethodBox = (JComboBox) getComponent("httpMethodBox");
+            URLResourceTextField urlResourceTextField = (URLResourceTextField) getComponent("urlResourceTF");
+            final RestRequestDTO restRequestDTO = new RestRequestDTO();
+            restRequestDTO.setRestURL(urlResourceTextField.getText().trim());
+            restRequestDTO.setHttpMethod((String) httpMethodBox.getSelectedItem());
+            urlExecutorPresenter.execute(this, restRequestDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onExecutionCompleted() {
+        enableDisableAction(true);
+    }
+
+    @Override
+    protected JPanel getPanel() {
+        return this;
     }
 }

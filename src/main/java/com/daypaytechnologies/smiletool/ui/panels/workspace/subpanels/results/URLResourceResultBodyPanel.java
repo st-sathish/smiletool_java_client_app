@@ -5,6 +5,7 @@ import com.daypaytechnologies.smiletool.core.OnDataTransferListener;
 import com.daypaytechnologies.smiletool.core.PanelComponent;
 import com.daypaytechnologies.smiletool.core.commands.dto.CommandDTO;
 import com.daypaytechnologies.smiletool.ui.AbstractJPanel;
+import com.daypaytechnologies.smiletool.ui.components.JsonTextPane;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
@@ -30,9 +31,10 @@ public class URLResourceResultBodyPanel extends AbstractJPanel implements OnData
         //jLabel.setBorder(BorderFactory.createLineBorder(Color.BLUE)); // Debug border
         //jLabel.setName("resultViewContainer");
 
-        JTextPane textPane = new JTextPane();
+        JsonTextPane textPane = new JsonTextPane();
         textPane.setName("resultViewContainer");
         textPane.setEditable(false);
+        textPane.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
         textPane.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
         // Get the StyledDocument from JTextPane
@@ -53,9 +55,9 @@ public class URLResourceResultBodyPanel extends AbstractJPanel implements OnData
     @Override
     public void onHandleResult(CommandDTO commandDTO) {
         URLResourceResultBodyCommandDTO commandResultDTO = (URLResourceResultBodyCommandDTO) commandDTO;
-        JTextPane jLabel = (JTextPane) getComponent("resultViewContainer");
+        JsonTextPane jLabel = (JsonTextPane) getComponent("resultViewContainer");
         if(jLabel != null) {
-            jLabel.setText(commandResultDTO.getResult());
+            jLabel.setJsonData(commandResultDTO.getResult());
         }
     }
 
