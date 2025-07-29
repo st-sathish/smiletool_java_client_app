@@ -1,37 +1,29 @@
-package com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options;
+package com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.body;
 
 import com.daypaytechnologies.smiletool.core.PanelComponent;
 import com.daypaytechnologies.smiletool.ui.AbstractJPanel;
 import com.daypaytechnologies.smiletool.ui.components.JsonTextPane;
 import com.daypaytechnologies.smiletool.ui.components.LineNumberView;
-import com.daypaytechnologies.smiletool.utils.ComponentUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 @Service
 @PanelComponent("urlResourceRequestBodyPanel")
-public class URLResourceOptionBodyPanel extends AbstractJPanel {
+public class ResourceBodyPanel extends AbstractJPanel {
 
-    public URLResourceOptionBodyPanel() {
+    private final ResourceBodyOptionPanel resourceBodyOptionPanel;
+
+    public ResourceBodyPanel(ResourceBodyOptionPanel resourceBodyOptionPanel) {
+        this.resourceBodyOptionPanel = resourceBodyOptionPanel;
         setBackground(Color.WHITE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(multiOptionPanel());
+        add(this.resourceBodyOptionPanel);
         add(editorPanel());
-    }
-
-    private JPanel multiOptionPanel() {
-        JPanel editoOptionPanel = new JPanel();
-        editoOptionPanel.setName("editorOptionPanel");
-        editoOptionPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        JLabel beautyBtn = prepareBeautyBtn();
-        editoOptionPanel.add(beautyBtn);
-        return editoOptionPanel;
     }
 
     private JPanel editorPanel() {
@@ -45,24 +37,6 @@ public class URLResourceOptionBodyPanel extends AbstractJPanel {
         scrollPane.setRowHeaderView(lineNumbers);
         editorPanel.add(scrollPane);
         return editorPanel;
-    }
-
-    private JLabel prepareBeautyBtn() {
-        JLabel sndButton = new JLabel("Beauty");
-        sndButton.setPreferredSize(new Dimension(100, 40));
-        sndButton.setForeground(new Color(239, 91, 37));
-        sndButton.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        sndButton.setName("ExecuteBeautyBtn");
-        sndButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                formatTextBeauty();
-            }
-        });
-
-        // Optional: cursor on hover
-        sndButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        return sndButton;
     }
 
     private JsonTextPane textViewComponent() {

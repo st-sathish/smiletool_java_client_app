@@ -1,10 +1,10 @@
 package com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels;
 
 import com.daypaytechnologies.smiletool.ui.components.UnderlineTabUI;
-import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.URLResourceOptionAuthorizationPanel;
-import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.URLResourceOptionBodyPanel;
-import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.URLResourceOptionHeaderPanel;
-import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.URLResourceOptionParamsPanel;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.authorization.URLResourceOptionAuthorizationPanel;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.body.ResourceBodyPanel;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.header.URLResourceOptionHeaderPanel;
+import com.daypaytechnologies.smiletool.ui.panels.workspace.subpanels.options.params.URLResourceOptionParamsPanel;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
@@ -21,10 +21,10 @@ public class URLResourceOptionPanel extends JPanel {
 
     private static final String BODY_TAB_NAME = "Body";
 
-    private final URLResourceOptionBodyPanel urlResourceOptionBodyPanel;
+    private final ResourceBodyPanel resourceBodyPanel;
 
-    public URLResourceOptionPanel(URLResourceOptionBodyPanel urlResourceOptionBodyPanel) {
-        this.urlResourceOptionBodyPanel = urlResourceOptionBodyPanel;
+    public URLResourceOptionPanel(ResourceBodyPanel resourceBodyPanel) {
+        this.resourceBodyPanel = resourceBodyPanel;
         setBorder(BorderFactory.createLineBorder(Color.BLUE)); // Debug border
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 300));
         setLayout(new BorderLayout());
@@ -42,7 +42,7 @@ public class URLResourceOptionPanel extends JPanel {
         tabbedPane.addTab(PARAMS_TAB_NAME, new URLResourceOptionParamsPanel());
         tabbedPane.addTab(AUTHORIZATION_TAB_NAME, new URLResourceOptionAuthorizationPanel());
         tabbedPane.addTab(HEADER_TAB_NAME, new URLResourceOptionHeaderPanel());
-        tabbedPane.addTab(BODY_TAB_NAME, urlResourceOptionBodyPanel);
+        tabbedPane.addTab(BODY_TAB_NAME, resourceBodyPanel);
         add(tabbedPane, BorderLayout.CENTER);
     }
 }
