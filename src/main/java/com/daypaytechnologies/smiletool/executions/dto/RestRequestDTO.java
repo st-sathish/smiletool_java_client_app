@@ -1,12 +1,8 @@
 package com.daypaytechnologies.smiletool.executions.dto;
 
-import lombok.Data;
-import lombok.ToString;
-
 import java.io.Serializable;
 
-@Data
-@ToString
+
 public class RestRequestDTO implements Serializable {
 
     private String httpMethod;
@@ -14,4 +10,28 @@ public class RestRequestDTO implements Serializable {
     private String restURL;
 
     private String requestBody;
+
+    public String getHttpMethod() {
+        return httpMethod;
+    }
+
+    public void setHttpMethod(String httpMethod) {
+        this.httpMethod = httpMethod;
+    }
+
+    public String getRestURL() {
+        return restURL;
+    }
+
+    public void setRestURL(String restURL) {
+        this.restURL = restURL;
+    }
+
+    public String getRequestBody() {
+        return requestBody;
+    }
+
+    public void setRequestBody(String requestBody) {
+        this.requestBody = requestBody;
+    }
 }

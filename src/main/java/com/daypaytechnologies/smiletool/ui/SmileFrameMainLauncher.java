@@ -2,7 +2,6 @@ package com.daypaytechnologies.smiletool.ui;
 
 import com.daypaytechnologies.smiletool.ui.panels.menu.SideMenuPanel;
 import com.daypaytechnologies.smiletool.ui.panels.workspace.WorkspacePanel;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -10,12 +9,16 @@ import java.awt.*;
 import java.util.Objects;
 
 @Component
-@RequiredArgsConstructor
 public class SmileFrameMainLauncher extends JFrame {
 
     private final WorkspacePanel workspacePanel;
 
     private final SideMenuPanel sideMenuPanel;
+
+    public SmileFrameMainLauncher(WorkspacePanel workspacePanel, SideMenuPanel sideMenuPanel) {
+        this.workspacePanel = workspacePanel;
+        this.sideMenuPanel = sideMenuPanel;
+    }
 
     public void run() {
         setTitle("SmileTool");

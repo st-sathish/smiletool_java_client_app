@@ -1,6 +1,5 @@
 package com.daypaytechnologies.smiletool.core;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.stereotype.Service;
@@ -9,12 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class PanelRegistry implements InitializingBean {
 
     private static final Map<String, Object> panelMap = new HashMap<>();
 
     private final ListableBeanFactory beanFactory;
+
+    public PanelRegistry(ListableBeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -6,14 +6,16 @@ import com.daypaytechnologies.smiletool.core.rmi.RmiServiceFactory;
 import com.daypaytechnologies.smiletool.executions.dto.RestRequestDTO;
 import com.daypaytechnologies.smiletool.executions.rmi.RestRmiExecutorService;
 import com.daypaytechnologies.smiletool.presenters.listeners.URLExecutorListener;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class URLExecutorPresenterImpl extends AbstractURLExecutorPresenter implements URLExecutorPresenter {
 
     private final CommandInvoker commandInvoker;
+
+    public URLExecutorPresenterImpl(CommandInvoker commandInvoker) {
+        this.commandInvoker = commandInvoker;
+    }
 
     @Override
     public void execute(URLExecutorListener listener, RestRequestDTO restRequestDTO) {

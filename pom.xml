@@ -28,12 +28,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.32</version> <!-- Use latest stable -->
+            <version>1.18.32</version> &lt;!&ndash; Use latest stable &ndash;&gt;
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -47,10 +47,38 @@
     </dependencies>
 
     <build>
+        <finalName>smile-tool</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.6.4</version>
+                <configuration>
+                    <name>smiletool</name>
+                    <mainClass>com.daypaytechnologies.smiletool.SmileApplication</mainClass>
+                    <input>${project.build.directory}</input>
+                    <mainJar>smile-tool.jar</mainJar>
+                    <type>EXE</type>
+                    <appVersion>1.0.0</appVersion>
+<!--                    <icon>src/main/resources/app.ico</icon> -->
+                    <icon>src/main/resources/images/smile_logo.png</icon>
+                    <destination>target/installer</destination>
+                    <winShortcut>true</winShortcut>
+                    <javaOptions>
+                        <javaOption>-Xmx512m</javaOption>
+                    </javaOptions>
+                </configuration>
             </plugin>
         </plugins>
     </build>
