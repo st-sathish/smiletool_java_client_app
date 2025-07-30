@@ -93,7 +93,7 @@ public class ResourceBodyOptionPanel extends AbstractJPanel {
     }
 
     private JComboBox<String> getRawOptions() {
-        String[] rawOptions = {"Text", "JSON", "HTML", "XML"};
+        String[] rawOptions = {"JSON", "Text", "HTML", "XML"};
         JComboBox<String> httpMethodBox = new JComboBox<>(rawOptions);
         //httpMethodBox.setPreferredSize(new Dimension(100, 40));
         httpMethodBox.setName("rawOptionBox");

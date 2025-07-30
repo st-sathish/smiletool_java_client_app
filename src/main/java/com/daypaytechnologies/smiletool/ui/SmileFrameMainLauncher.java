@@ -23,13 +23,39 @@ public class SmileFrameMainLauncher extends JFrame {
         setExtendedState(Frame.MAXIMIZED_BOTH);
         showLogo();
         addAllPanels();
+
+        // Create the menu bar
+        JMenuBar menuBar = new JMenuBar();
+
+        // Create menus
+        JMenu fileMenu = new JMenu("File");
+        JMenu editMenu = new JMenu("Edit");
+
+        // Create menu items
+        JMenuItem newItem = new JMenuItem("New");
+        JMenuItem openItem = new JMenuItem("Open");
+        JMenuItem exitItem = new JMenuItem("Exit");
+
+        // Add menu items to the File menu
+        fileMenu.add(newItem);
+        fileMenu.add(openItem);
+        fileMenu.addSeparator();  // adds a line separator
+        fileMenu.add(exitItem);
+
+        // Add menus to the menu bar
+        menuBar.add(fileMenu);
+        menuBar.add(editMenu);
+
+        // Set the menu bar to the frame
+        setJMenuBar(menuBar);
+
         setVisible(true);
     }
 
     public void addAllPanels() {
-        JSplitPane splitPane = new JSplitPane();
-        splitPane.setLeftComponent(menuPanel);
-        splitPane.setRightComponent(workspacePanel);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuPanel, workspacePanel);
+        splitPane.setDividerLocation(200); // initial location (won't work until frame is shown)
+        //splitPane.setResizeWeight(0.5);// keeps them equal during resizing
         add(splitPane);
     }
 
