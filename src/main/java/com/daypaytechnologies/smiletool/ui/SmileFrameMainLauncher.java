@@ -50,12 +50,15 @@ public class SmileFrameMainLauncher extends JFrame {
         setJMenuBar(menuBar);
 
         setVisible(true);
+        setBackground(Color.WHITE);
     }
 
     public void addAllPanels() {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, sideMenuPanel, workspacePanel);
         splitPane.setDividerLocation(200); // initial location (won't work until frame is shown)
-        //splitPane.setResizeWeight(0.5);// keeps them equal during resizing
+        splitPane.setResizeWeight(0.5);// keeps them equal during resizing
+        splitPane.setOpaque(false);
+        splitPane.setBackground(Color.WHITE);
         add(splitPane);
     }
 
